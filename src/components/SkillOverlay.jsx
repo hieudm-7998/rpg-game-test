@@ -16,9 +16,15 @@ const SkillOverlay = ({
   upgradeAbility,
   points,
 }) => {
-  console.log(character);
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange} hideCloseButton>
+    <Modal
+      backdrop="blur"
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+      hideCloseButton
+      scrollBehavior="inside"
+      placement="center"
+    >
       <ModalContent>
         {(onClose) => (
           <>
@@ -39,6 +45,7 @@ const SkillOverlay = ({
                         <Chip
                           size="sm"
                           color={ability.level === 3 ? "danger" : "success"}
+                          className="text-white"
                         >
                           {ability.level === 3 ? "MAX" : `+${ability.level}`}
                         </Chip>
@@ -57,16 +64,16 @@ const SkillOverlay = ({
                       </Button>
                     </div>
                   </div>
-                  <div>
-                    <p>{ability.description}</p>
-                  </div>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: ability.getDescription(),
+                    }}
+                  ></div>
                 </div>
               ))}
             </ModalBody>
             <ModalFooter className="flex justify-center items-center">
-              <Button onPress={onClose}>
-                Close
-              </Button>
+              <Button onPress={onClose}>Close</Button>
             </ModalFooter>
           </>
         )}

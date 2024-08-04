@@ -1,9 +1,13 @@
 class Ability {
-  constructor(name, description, isPassive = false) {
+  constructor(name, descriptions, isPassive = false) {
     this.name = name;
-    this.description = description;
+    this.descriptions = descriptions;
     this.level = isPassive ? 1 : 0;
     this.isPassive = isPassive;
+  }
+
+  getDescription() {
+    return this.descriptions[this.level];
   }
 
   upgrade() {
@@ -29,44 +33,106 @@ class Character {
   getAbility(abilityName) {
     return this.abilities.find((a) => a.name === abilityName);
   }
+
+  getLeveledUpAbilities() {
+    return this.abilities.filter((ability) => ability.level >= 1);
+  }
 }
 
 const warriorAbilities = [
-  new Ability("Berserker Rage", "Sacrifice HP for attack bonus this turn."),
-  new Ability("Taunt", "Freezes closest player(s) in place."),
-  new Ability("Damage Reduction", "+1 damage reduction.", true),
+  new Ability("Berserker Rage", [
+    "Sacrifice <span style='color: red;'>30</span> HP for <span style='color: red;'>30</span> ATK bonus this turn.",
+    "Sacrifice <span style='color: red;'>45</span> HP for <span style='color: red;'>45</span> ATK bonus this turn.",
+    "Sacrifice <span style='color: red;'>55</span> HP for <span style='color: red;'>55</span> ATK bonus this turn.",
+    "Sacrifice <span style='color: red;'>70</span> HP for <span style='color: red;'>70</span> ATK bonus this turn.",
+  ]),
+  new Ability("Taunt", [
+    "Freezes <span style='color: red;'>1</span> closest player in place.",
+    "Freezes <span style='color: red;'>2</span> closest players in place.",
+    "Freezes <span style='color: red;'>3</span> closest players in place.",
+    "Freezes <span style='color: red;'>4</span> closest players in place.",
+  ]),
+  new Ability(
+    "Damage Reduction",
+    [
+      "<span style='color: red;'>+1</span> damage reduction.",
+      "<span style='color: red;'>+2</span> damage reduction.",
+      "<span style='color: red;'>+3</span> damage reduction.",
+      "<span style='color: red;'>+4</span> damage reduction.",
+    ],
+    true
+  ),
 ];
 
 const wizardAbilities = [
-  new Ability(
-    "Illusion",
-    "If enemy hits wrong target they become vulnerable next turn."
-  ),
-  new Ability("Blink", "Skips a room without entering it (teleports)."),
+  new Ability("Illusion", [
+    "If enemy hits wrong target they become vulnerable next turn.",
+    "If enemy hits wrong target they become vulnerable next turn and take <span style='color: red;'>50</span> damage.",
+    "If enemy hits wrong target they become vulnerable next turn and take <span style='color: red;'>80</span> damage.",
+    "If enemy hits wrong target they become vulnerable next turn and take <span style='color: red;'>100</span> damage.",
+  ]),
+  new Ability("Blink", [
+    "Skips <span style='color: red;'>1</span> room without entering it.",
+    "Skips <span style='color: red;'>2</span> room without entering it.",
+    "Skips <span style='color: red;'>3</span> room without entering it.",
+    "Skips <span style='color: red;'>4</span> room without entering it.",
+  ]),
   new Ability(
     "Presence",
-    "See what's in the next room and hear players from farther away.",
+    [
+      "See what's in the next room and hear players from <span style='color: red;'>1</span> room farther away.",
+      "See what's in the next two rooms and hear players from <span style='color: red;'>2</span> room farther away.",
+      "See what's in the next three rooms and hear players from <span style='color: red;'>3</span> room farther away.",
+      "See everything in a dungeon and hear players from <span style='color: red;'>4</span> room farther away.",
+    ],
     true
   ),
 ];
 
 const rogueAbilities = [
-  new Ability("Evade", "Take no damage next turn."),
-  new Ability("Vanish", "Become invisible for 30 seconds."),
+  new Ability("Evade", [
+    "Take no damage next <span style='color: red;'>1</span> turns.",
+    "Take no damage next <span style='color: red;'>2</span> turns.",
+    "Take no damage next <span style='color: red;'>3</span> turns.",
+    "Take no damage for <span style='color: red;'>4</span> turns.",
+  ]),
+  new Ability("Vanish", [
+    "Become invisible for <span style='color: red;'>30</span> seconds.",
+    "Become invisible for <span style='color: red;'>40</span> seconds.",
+    "Become invisible for <span style='color: red;'>50</span> seconds.",
+    "Become invisible for <span style='color: red;'>60</span> seconds.",
+  ]),
   new Ability(
     "Backstab",
-    "Guarantees first turn +50% more damage on first attack if invisible.",
+    [
+      "Guarantees first turn <span style='color: red;'>+50%</span> more damage on first attack if invisible.",
+      "Guarantees first turn <span style='color: red;'>+75%</span> more damage on first attack if invisible.",
+      "Guarantees first turn <span style='color: red;'>+90%</span> more damage on first attack if invisible.",
+      "Guarantees first turn <span style='color: red;'>+105%</span> more damage on first attack if invisible.",
+    ],
     true
   ),
 ];
 
 const generalAbilities = [
-  new Ability("Health", "Extra health points."),
-  new Ability("Strength", "Extra attack."),
-  new Ability(
-    "Pickpocketing",
-    "Increases success chance of pickpocket attempt."
-  ),
+  new Ability("Health", [
+    "<span style='color: red;'>+1</span> extra HP.",
+    "<span style='color: red;'>+2</span> extra HP.",
+    "<span style='color: red;'>+3</span> extra HP.",
+    "<span style='color: red;'>+4</span> extra HP.",
+  ]),
+  new Ability("Strength", [
+    "<span style='color: red;'>+1</span> extra ATK.",
+    "<span style='color: red;'>+2</span> extra ATK.",
+    "<span style='color: red;'>+3</span> extra ATK.",
+    "<span style='color: red;'>+4</span> extra ATK.",
+  ]),
+  new Ability("Pickpocketing", [
+    "<span style='color: red;'>+1%</span> success chance of pickpocket attempt.",
+    "<span style='color: red;'>+2%</span> success chance of pickpocket attempt.",
+    "<span style='color: red;'>+3%</span> success chance of pickpocket attempt.",
+    "<span style='color: red;'>+4%</span> success chance of pickpocket attempt.",
+  ]),
 ];
 
 export {
@@ -76,3 +142,5 @@ export {
   rogueAbilities,
   generalAbilities,
 };
+
+export default { Ability };

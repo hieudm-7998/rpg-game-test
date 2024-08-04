@@ -13,9 +13,16 @@ module.exports = {
     extend: {
       container: {
         center: true,
+        padding: "1rem",
         screens: {
           lg: "600px",
           xl: "600px",
+        },
+      },
+      keyframes: {
+        bounce: {
+          "0%, 100%": { transform: "translateY(-2%)" },
+          "50%": { transform: "translateY(0)" },
         },
       },
     },
